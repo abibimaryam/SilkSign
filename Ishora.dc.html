@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:#faf8f5;color:#1c1726;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+:focus-visible{outline:3px solid var(--ish-pri,#6d28d9);outline-offset:3px;border-radius:6px}
+::selection{background:var(--ish-pri,#6d28d9);color:#fff}
+@keyframes ish-pulse{0%{transform:scale(.5);opacity:0}35%{opacity:.5}100%{transform:scale(1.75);opacity:0}}
+@keyframes ish-blink{0%,48%{opacity:1}49%,100%{opacity:0}}
+@keyframes ish-rec{0%,100%{opacity:1}50%{opacity:.18}}
+@keyframes ish-reveal{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes ish-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes ish-finger{0%,100%{transform:scaleY(1)}30%{transform:scaleY(.52)}60%{transform:scaleY(.82)}}
+@keyframes ish-thumb{0%,100%{transform:rotate(-34deg)}45%{transform:rotate(-8deg) scaleY(.88)}}
+@keyframes ish-handsway{0%,100%{transform:rotate(-5deg) translateY(0)}50%{transform:rotate(5deg) translateY(-5px)}}
+@keyframes ish-travel{0%{left:6px}50%{left:158px}100%{left:6px}}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}[data-reveal]{animation:none!important;opacity:1!important;transform:none!important}}
+</style>
+</helmet>
+
+<div id="top" style="overflow-x:hidden">
+
+<a href="#main" style="position:absolute;left:12px;top:-60px;z-index:200;background:var(--ish-pri,#6d28d9);color:#fff;padding:12px 18px;border-radius:10px;font:700 15px/1 'Public Sans',sans-serif;text-decoration:none;transition:top .18s ease" style-focus="top:12px">{{ t.skip }}</a>
+
+<header role="banner" style="position:sticky;top:0;z-index:100;background:rgba(250,248,245,.82);backdrop-filter:saturate(1.3) blur(10px);-webkit-backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid #ece5f5">
+  <div style="max-width:1200px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+    <a href="#top" aria-label="Ishora" style="display:inline-flex;align-items:center;gap:11px;text-decoration:none">
+      <span aria-hidden="true" style="width:28px;height:28px;border-radius:8px;background:var(--ish-pri,#6d28d9);display:inline-block;transform:rotate(45deg);box-shadow:inset 0 0 0 5px rgba(255,255,255,.85)"></span>
+      <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em;color:#1c1726">Ishora</span>
+    </a>
+    <nav aria-label="Asosiy" style="margin-left:auto;display:flex;gap:4px;flex-wrap:wrap">
+      <a href="#how" style="padding:9px 13px;border-radius:9px;color:#3b3450;text-decoration:none;font:600 15px/1 'Public Sans',sans-serif;transition:background .15s ease,color .15s ease" style-hover="background:#f1eafa;color:var(--ish-pri-deep,#4c1d95)">{{ t.nav.how }}</a>
+      <a href="#features" style="padding:9px 13px;border-radius:9px;color:#3b3450;text-decoration:none;font:600 15px/1 'Public Sans',sans-serif;transition:background .15s ease,color .15s ease" style-hover="background:#f1eafa;color:var(--ish-pri-deep,#4c1d95)">{{ t.nav.features }}</a>
+      <a href="#tech" style="padding:9px 13px;border-radius:9px;color:#3b3450;text-decoration:none;font:600 15px/1 'Public Sans',sans-serif;transition:background .15s ease,color .15s ease" style-hover="background:#f1eafa;color:var(--ish-pri-deep,#4c1d95)">{{ t.nav.tech }}</a>
+      <a href="#faq" style="padding:9px 13px;border-radius:9px;color:#3b3450;text-decoration:none;font:600 15px/1 'Public Sans',sans-serif;transition:background .15s ease,color .15s ease" style-hover="background:#f1eafa;color:var(--ish-pri-deep,#4c1d95)">{{ t.nav.faq }}</a>
+    </nav>
+    <div role="group" aria-label="Til / Язык / Language" style="display:flex;gap:4px;padding:3px;background:#f1eafa;border-radius:999px">
+      <sc-for list="{{ langs }}" as="lang" hint-placeholder-count="3">
+        <button type="button" onClick="{{ lang.select }}" aria-pressed="{{ lang.active }}" style="{{ lang.style }}">{{ lang.label }}</button>
+      </sc-for>
+    </div>
+    <a href="#join" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 20px;background:var(--ish-pri,#6d28d9);color:#fff;border-radius:11px;font:700 15px/1 'Public Sans',sans-serif;text-decoration:none;box-shadow:0 5px 16px rgba(109,40,217,.22);transition:transform .18s ease,box-shadow .18s ease" style-hover="transform:translateY(-2px);box-shadow:0 9px 22px rgba(109,40,217,.3)">{{ t.cta }}</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section aria-labelledby="hero-h" style="position:relative;background:radial-gradient(1100px 520px at 78% -8%, #efe7fb 0%, rgba(239,231,251,0) 60%), #faf8f5">
+  <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+    <span style="position:absolute;left:6%;top:20%;width:56px;height:56px;border-radius:50%;border:2px solid #d9c8f2;opacity:.7;animation:ish-float 6s ease-in-out infinite"></span>
+    <span style="position:absolute;right:8%;top:64%;width:22px;height:22px;border-radius:6px;background:var(--ish-accent,#e85d4a);opacity:.45;transform:rotate(45deg);animation:ish-float 5s ease-in-out infinite;animation-delay:1s"></span>
+    <span style="position:absolute;left:44%;top:9%;width:12px;height:12px;border-radius:50%;background:var(--ish-pri,#6d28d9);opacity:.4;animation:ish-float 7s ease-in-out infinite;animation-delay:.5s"></span>
+    <span style="position:absolute;left:12%;bottom:12%;width:30px;height:30px;border-radius:50%;border:2px solid #e85d4a;opacity:.3;animation:ish-float 6.5s ease-in-out infinite;animation-delay:1.6s"></span>
+  </div>
+  <div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(48px,7vw,92px) 22px;display:flex;gap:clamp(32px,5vw,72px);align-items:center;flex-wrap:wrap">
+    <div style="flex:1 1 420px;min-width:300px">
+      <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;background:#f1eafa;border:1px solid #e2d5f5;border-radius:999px;font:600 14px/1 'Public Sans',sans-serif;color:var(--ish-pri-deep,#4c1d95);letter-spacing:.02em"><span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:var(--ish-pri,#6d28d9);transform:rotate(45deg)"></span>{{ t.hero.kicker }}</span>
+      <h1 id="hero-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(36px,5.6vw,62px);line-height:1.02;letter-spacing:-.025em;margin:20px 0 0;color:#1a1523;text-wrap:balance">{{ t.hero.headline }}</h1>
+      <p style="margin:22px 0 0;font-size:clamp(17px,1.7vw,21px);line-height:1.6;color:#4a4360;max-width:30em;text-wrap:pretty">{{ t.hero.sub }}</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:34px">
+        <a href="#join" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:15px 28px;background:var(--ish-pri,#6d28d9);color:#fff;border-radius:13px;font:700 17px/1 'Public Sans',sans-serif;text-decoration:none;box-shadow:0 7px 20px rgba(109,40,217,.24);transition:transform .18s ease,box-shadow .18s ease" style-hover="transform:translateY(-2px);box-shadow:0 12px 28px rgba(109,40,217,.32)">{{ t.hero.primary }}</a>
+        <a href="/demo" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:15px 24px;background:#fff;color:var(--ish-pri-deep,#4c1d95);border:1.5px solid #e0d3f3;border-radius:13px;font:700 17px/1 'Public Sans',sans-serif;text-decoration:none;transition:border-color .18s ease,background .18s ease" style-hover="background:#faf6ff;border-color:#cdb6ec"><span aria-hidden="true" style="display:inline-block;width:0;height:0;border-left:11px solid var(--ish-pri,#6d28d9);border-top:7px solid transparent;border-bottom:7px solid transparent"></span>{{ t.hero.secondary }}</a>
+      </div>
+      <div style="margin-top:22px">
+        <sc-if value="{{ welcomeEnabled }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ toggleWelcome }}" aria-expanded="{{ welcomeOpen }}" style="display:inline-flex;align-items:center;gap:11px;min-height:44px;padding:9px 16px 9px 9px;background:transparent;border:1px dashed #c9b8e6;border-radius:999px;cursor:pointer;font:600 15px/1 'Public Sans',sans-serif;color:#4a4360;transition:background .15s ease,border-color .15s ease" style-hover="background:#f5f0fc;border-color:var(--ish-pri,#6d28d9)"><span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--ish-pri,#6d28d9)"><span style="display:inline-block;width:0;height:0;border-left:9px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:2px"></span></span>{{ t.hero.welcome }}</button>
+        <sc-if value="{{ welcomeOpen }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="margin-top:14px;max-width:380px;border:1.5px dashed #c9b8e6;border-radius:14px;padding:0;overflow:hidden;background:#fff">
+            <div aria-hidden="true" style="height:150px;background:repeating-linear-gradient(45deg,#efe9fa,#efe9fa 11px,#f7f3fd 11px,#f7f3fd 22px);display:flex;align-items:center;justify-content:center;font:12px/1 ui-monospace,monospace;color:#7a69a0">[ welcome video placeholder ]</div>
+            <p style="margin:0;padding:13px 16px;font-size:14.5px;line-height:1.5;color:#4a4360">{{ t.hero.welcomeNote }}</p>
+          </div>
+        </sc-if>
+        </sc-if>
+      </div>
+      <ul style="list-style:none;margin:26px 0 0;padding:0;display:flex;gap:10px;flex-wrap:wrap">
+        <sc-for list="{{ t.hero.points }}" as="pt" hint-placeholder-count="3">
+          <li style="display:inline-flex;align-items:center;gap:9px;padding:9px 15px;background:#fff;border:1px solid #ece2f7;border-radius:999px;font:600 14px/1 'Public Sans',sans-serif;color:#3b3450"><span aria-hidden="true" style="width:9px;height:9px;border-radius:3px;background:var(--ish-pri,#6d28d9);transform:rotate(45deg)"></span>{{ pt }}</li>
+        </sc-for>
+      </ul>
+    </div>
+
+    <!-- looping silent demo -->
+    <div style="flex:1 1 360px;min-width:300px;max-width:480px" aria-label="Demo" role="img">
+      <div style="background:#fff;border:1px solid #ece2f7;border-radius:22px;padding:16px;box-shadow:0 24px 60px -28px rgba(76,29,149,.4)">
+        <!-- direction 1 -->
+        <div style="border-radius:16px;background:#f8f5fd;border:1px solid #efe6fa;padding:14px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px">
+            <span aria-hidden="true" style="width:9px;height:9px;border-radius:50%;background:var(--ish-pri,#6d28d9);transform:rotate(45deg)"></span>
+            <span style="font:700 13px/1 'Public Sans',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--ish-pri-deep,#4c1d95)">{{ t.demo.d1label }}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:2px;background:#fff;border:1px solid #e9e0f6;border-radius:10px;padding:11px 13px;font-size:16px;color:#1c1726;margin-bottom:12px">{{ t.demo.d1text }}<span aria-hidden="true" style="display:inline-block;width:2px;height:18px;background:var(--ish-pri,#6d28d9);margin-left:2px;animation:ish-blink 1.1s step-end infinite"></span></div>
+          <div style="position:relative;height:150px;border-radius:12px;overflow:hidden;background:repeating-linear-gradient(45deg,#efe9fa,#efe9fa 11px,#f7f3fd 11px,#f7f3fd 22px);display:flex;align-items:center;justify-content:center">
+            <div aria-hidden="true" style="position:relative;width:118px;height:138px;animation:ish-handsway 3.4s ease-in-out infinite">
+              <span style="position:absolute;left:59px;top:60px;width:104px;height:104px;margin:-52px 0 0 -52px;border-radius:50%;border:2px solid var(--ish-pri,#6d28d9);opacity:.22;animation:ish-pulse 2.8s ease-out infinite"></span>
+              <span style="position:absolute;left:59px;top:60px;width:104px;height:104px;margin:-52px 0 0 -52px;border-radius:50%;border:2px solid var(--ish-pri,#6d28d9);opacity:.22;animation:ish-pulse 2.8s ease-out infinite;animation-delay:.95s"></span>
+              <span style="position:absolute;left:30px;top:30px;width:13px;height:46px;border-radius:7px;background:var(--ish-pri,#6d28d9);transform-origin:bottom center;animation:ish-finger 2.2s ease-in-out infinite"></span>
+              <span style="position:absolute;left:46px;top:22px;width:13px;height:54px;border-radius:7px;background:var(--ish-pri,#6d28d9);transform-origin:bottom center;animation:ish-finger 2.2s ease-in-out infinite;animation-delay:.18s"></span>
+              <span style="position:absolute;left:62px;top:26px;width:13px;height:50px;border-radius:7px;background:var(--ish-pri,#6d28d9);transform-origin:bottom center;animation:ish-finger 2.2s ease-in-out infinite;animation-delay:.36s"></span>
+              <span style="position:absolute;left:78px;top:34px;width:12px;height:42px;border-radius:7px;background:var(--ish-pri,#6d28d9);transform-origin:bottom center;animation:ish-finger 2.2s ease-in-out infinite;animation-delay:.5s"></span>
+              <span style="position:absolute;left:28px;top:64px;width:62px;height:58px;border-radius:22px 22px 18px 18px;background:var(--ish-pri-deep,#4c1d95)"></span>
+              <span style="position:absolute;left:16px;top:60px;width:13px;height:40px;border-radius:7px;background:var(--ish-pri,#6d28d9);transform-origin:bottom center;transform:rotate(-34deg);animation:ish-thumb 2.6s ease-in-out infinite"></span>
+              <span style="position:absolute;left:40px;top:116px;width:38px;height:26px;border-radius:0 0 12px 12px;background:var(--ish-pri-deep,#4c1d95);opacity:.9"></span>
+            </div>
+            <span style="position:absolute;left:9px;bottom:8px;font:11px/1 ui-monospace,monospace;color:#6b5b8a;background:rgba(255,255,255,.78);padding:4px 7px;border-radius:6px">{{ t.demo.d1cap }}</span>
+          </div>
+        </div>
+        <!-- direction 2 -->
+        <div style="border-radius:16px;background:#f0faf6;border:1px solid #d8f0e6;padding:14px;margin-top:12px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px">
+            <span aria-hidden="true" style="width:9px;height:9px;border-radius:50%;background:#047857;transform:rotate(45deg)"></span>
+            <span style="font:700 13px/1 'Public Sans',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#065f46">{{ t.demo.d2label }}</span>
+            <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font:700 11px/1 'Public Sans',sans-serif;letter-spacing:.06em;color:#047857"><span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#047857;animation:ish-rec 1.3s ease-in-out infinite"></span>{{ t.demo.rec }}</span>
+          </div>
+          <div style="position:relative;height:150px;border-radius:12px;overflow:hidden;background:repeating-linear-gradient(45deg,#e4f3ec,#e4f3ec 11px,#eff9f4 11px,#eff9f4 22px);display:flex;align-items:center;justify-content:center">
+            <div aria-hidden="true" style="transform:scaleX(-1)">
+            <div style="position:relative;width:118px;height:138px;animation:ish-handsway 3.8s ease-in-out infinite;animation-delay:.6s">
+              <span style="position:absolute;left:59px;top:60px;width:104px;height:104px;margin:-52px 0 0 -52px;border-radius:50%;border:2px solid #047857;opacity:.22;animation:ish-pulse 2.8s ease-out infinite;animation-delay:.4s"></span>
+              <span style="position:absolute;left:59px;top:60px;width:104px;height:104px;margin:-52px 0 0 -52px;border-radius:50%;border:2px solid #047857;opacity:.22;animation:ish-pulse 2.8s ease-out infinite;animation-delay:1.35s"></span>
+              <span style="position:absolute;left:30px;top:30px;width:13px;height:46px;border-radius:7px;background:#047857;transform-origin:bottom center;animation:ish-finger 2.4s ease-in-out infinite;animation-delay:.1s"></span>
+              <span style="position:absolute;left:46px;top:22px;width:13px;height:54px;border-radius:7px;background:#047857;transform-origin:bottom center;animation:ish-finger 2.4s ease-in-out infinite;animation-delay:.32s"></span>
+              <span style="position:absolute;left:62px;top:26px;width:13px;height:50px;border-radius:7px;background:#047857;transform-origin:bottom center;animation:ish-finger 2.4s ease-in-out infinite;animation-delay:.5s"></span>
+              <span style="position:absolute;left:78px;top:34px;width:12px;height:42px;border-radius:7px;background:#047857;transform-origin:bottom center;animation:ish-finger 2.4s ease-in-out infinite;animation-delay:.66s"></span>
+              <span style="position:absolute;left:28px;top:64px;width:62px;height:58px;border-radius:22px 22px 18px 18px;background:#065f46"></span>
+              <span style="position:absolute;left:16px;top:60px;width:13px;height:40px;border-radius:7px;background:#047857;transform-origin:bottom center;transform:rotate(-34deg);animation:ish-thumb 2.8s ease-in-out infinite"></span>
+              <span style="position:absolute;left:40px;top:116px;width:38px;height:26px;border-radius:0 0 12px 12px;background:#065f46;opacity:.9"></span>
+            </div>
+            </div>
+            <span style="position:absolute;left:9px;bottom:8px;font:11px/1 ui-monospace,monospace;color:#3f7a64;background:rgba(255,255,255,.8);padding:4px 7px;border-radius:6px">{{ t.demo.d2cap }}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:2px;background:#fff;border:1px solid #d6efe3;border-radius:10px;padding:11px 13px;font-size:16px;color:#1c1726;margin-top:12px">{{ t.demo.d2text }}<span aria-hidden="true" style="display:inline-block;width:2px;height:18px;background:#047857;margin-left:2px;animation:ish-blink 1.1s step-end infinite"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section aria-label="{{ t.trust.partners }}" style="background:var(--ish-pri-deep,#4c1d95)">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 22%;max-width:1200px;margin:0 auto;padding:26px 22px;display:flex;gap:26px;align-items:center;flex-wrap:wrap">
+    <p style="margin:0;flex:1 1 360px;min-width:280px;color:#f3ecff;font-size:clamp(16px,1.6vw,19px);line-height:1.55;font-weight:500">{{ t.trust.line }}</p>
+    <div aria-hidden="true" style="display:flex;gap:12px;flex-wrap:wrap">
+      <span style="display:inline-flex;align-items:center;justify-content:center;height:42px;width:96px;border:1px dashed rgba(255,255,255,.4);border-radius:9px;font:11px/1 ui-monospace,monospace;color:rgba(255,255,255,.65)">logo</span>
+      <span style="display:inline-flex;align-items:center;justify-content:center;height:42px;width:96px;border:1px dashed rgba(255,255,255,.4);border-radius:9px;font:11px/1 ui-monospace,monospace;color:rgba(255,255,255,.65)">logo</span>
+      <span style="display:inline-flex;align-items:center;justify-content:center;height:42px;width:96px;border:1px dashed rgba(255,255,255,.4);border-radius:9px;font:11px/1 ui-monospace,monospace;color:rgba(255,255,255,.65)">logo</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" aria-labelledby="how-h" style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 22px">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 24%">
+    <h2 id="how-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.02em;margin:0;color:#1a1523">{{ t.how.title }}</h2>
+    <p style="margin:12px 0 0;font-size:clamp(16px,1.6vw,19px);color:#5b5470;max-width:34em">{{ t.how.sub }}</p>
+    <div aria-hidden="true" style="position:relative;display:flex;align-items:center;margin-top:22px;width:186px;height:14px">
+      <span style="width:13px;height:13px;border-radius:50%;background:var(--ish-pri,#6d28d9);flex:none"></span>
+      <span style="flex:1;height:2px;background:linear-gradient(90deg,#e2d5f5,#d8f0e6)"></span>
+      <span style="width:13px;height:13px;border-radius:50%;background:#047857;flex:none"></span>
+      <span style="position:absolute;top:3px;left:6px;width:8px;height:8px;border-radius:50%;background:var(--ish-accent,#e85d4a);animation:ish-travel 2.4s ease-in-out infinite"></span>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:38px">
+      <div style="flex:1 1 360px;min-width:290px;background:#fff;border:1px solid #ece2f7;border-radius:20px;padding:28px">
+        <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;background:#f1eafa;border-radius:999px;font:700 14px/1 'Public Sans',sans-serif;color:var(--ish-pri-deep,#4c1d95)"><span aria-hidden="true" style="width:9px;height:9px;border-radius:50%;background:var(--ish-pri,#6d28d9);transform:rotate(45deg)"></span>{{ t.how.flow1.title }}</div>
+        <ol style="list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:18px">
+          <sc-for list="{{ flow1Steps }}" as="s" hint-placeholder-count="3">
+            <li style="display:flex;gap:15px;align-items:flex-start">
+              <span aria-hidden="true" style="flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--ish-pri,#6d28d9);color:#fff;font:800 16px/1 'Bricolage Grotesque',sans-serif">{{ s.n }}</span>
+              <span style="font-size:17px;line-height:1.5;color:#2a2440;padding-top:7px">{{ s.text }}</span>
+            </li>
+          </sc-for>
+        </ol>
+      </div>
+      <div style="flex:1 1 360px;min-width:290px;background:#fff;border:1px solid #d8f0e6;border-radius:20px;padding:28px">
+        <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;background:#e4f3ec;border-radius:999px;font:700 14px/1 'Public Sans',sans-serif;color:#065f46"><span aria-hidden="true" style="width:9px;height:9px;border-radius:50%;background:#047857;transform:rotate(45deg)"></span>{{ t.how.flow2.title }}</div>
+        <ol style="list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:18px">
+          <sc-for list="{{ flow2Steps }}" as="s" hint-placeholder-count="3">
+            <li style="display:flex;gap:15px;align-items:flex-start">
+              <span aria-hidden="true" style="flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#047857;color:#fff;font:800 16px/1 'Bricolage Grotesque',sans-serif">{{ s.n }}</span>
+              <span style="font-size:17px;line-height:1.5;color:#2a2440;padding-top:7px">{{ s.text }}</span>
+            </li>
+          </sc-for>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" aria-labelledby="feat-h" style="background:#f4f0fb">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 24%;max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 22px">
+    <h2 id="feat-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.02em;margin:0;color:#1a1523">{{ t.features.title }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:36px">
+      <sc-for list="{{ t.features.items }}" as="f" hint-placeholder-count="6">
+        <div style="background:#fff;border:1px solid #ece2f7;border-radius:18px;padding:24px;transition:transform .18s ease,box-shadow .18s ease" style-hover="transform:translateY(-3px);box-shadow:0 16px 36px -22px rgba(76,29,149,.5)">
+          <span aria-hidden="true" style="display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--ish-pri,#6d28d9);transform:rotate(45deg);margin-bottom:16px"></span>
+          <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+            <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.01em;color:#1a1523">{{ f.title }}</h3>
+            <sc-if value="{{ f.tag }}" hint-placeholder-val="">
+              <span style="font:700 11px/1 'Public Sans',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#9a5b00;background:#fdebcf;border:1px solid #f6d79b;padding:4px 8px;border-radius:999px">{{ f.tag }}</span>
+            </sc-if>
+          </div>
+          <p style="margin:10px 0 0;font-size:15.5px;line-height:1.55;color:#5b5470">{{ f.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS / TECH -->
+<section id="tech" aria-labelledby="why-h" style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 22px">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 24%;display:flex;gap:clamp(32px,5vw,72px);flex-wrap:wrap;align-items:center">
+    <div style="flex:1 1 380px;min-width:300px">
+      <h2 id="why-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,42px);line-height:1.08;letter-spacing:-.02em;margin:0;color:#1a1523;text-wrap:balance">{{ t.why.title }}</h2>
+      <div style="margin-top:22px;display:flex;flex-direction:column;gap:16px">
+        <sc-for list="{{ t.why.body }}" as="p" hint-placeholder-count="3">
+          <p style="margin:0;font-size:clamp(16px,1.6vw,19px);line-height:1.62;color:#3b3450;max-width:34em;text-wrap:pretty">{{ p }}</p>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:1 1 320px;min-width:280px">
+      <div style="position:relative;overflow:hidden;background:linear-gradient(155deg,var(--ish-pri,#6d28d9),var(--ish-pri-deep,#4c1d95));border-radius:22px;padding:34px 30px;color:#fff;box-shadow:0 24px 60px -30px rgba(76,29,149,.6)">
+        <div aria-hidden="true" style="position:absolute;top:-6px;right:14px;width:118px;height:138px;transform:scale(.7);transform-origin:top right;opacity:.9">
+          <div style="position:relative;width:118px;height:138px;animation:ish-handsway 3.6s ease-in-out infinite">
+            <span style="position:absolute;left:30px;top:30px;width:13px;height:46px;border-radius:7px;background:rgba(255,255,255,.92);transform-origin:bottom center;animation:ish-finger 2.3s ease-in-out infinite"></span>
+            <span style="position:absolute;left:46px;top:22px;width:13px;height:54px;border-radius:7px;background:rgba(255,255,255,.92);transform-origin:bottom center;animation:ish-finger 2.3s ease-in-out infinite;animation-delay:.2s"></span>
+            <span style="position:absolute;left:62px;top:26px;width:13px;height:50px;border-radius:7px;background:rgba(255,255,255,.92);transform-origin:bottom center;animation:ish-finger 2.3s ease-in-out infinite;animation-delay:.38s"></span>
+            <span style="position:absolute;left:78px;top:34px;width:12px;height:42px;border-radius:7px;background:rgba(255,255,255,.92);transform-origin:bottom center;animation:ish-finger 2.3s ease-in-out infinite;animation-delay:.52s"></span>
+            <span style="position:absolute;left:28px;top:64px;width:62px;height:58px;border-radius:22px 22px 18px 18px;background:rgba(255,255,255,.6)"></span>
+            <span style="position:absolute;left:16px;top:60px;width:13px;height:40px;border-radius:7px;background:rgba(255,255,255,.92);transform-origin:bottom center;transform:rotate(-34deg);animation:ish-thumb 2.7s ease-in-out infinite"></span>
+            <span style="position:absolute;left:40px;top:116px;width:38px;height:26px;border-radius:0 0 12px 12px;background:rgba(255,255,255,.55)"></span>
+          </div>
+        </div>
+        <p style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(22px,2.4vw,28px);line-height:1.25;letter-spacing:-.01em">{{ t.why.quote }}</p>
+        <div style="margin-top:20px;display:flex;align-items:center;gap:11px">
+          <span aria-hidden="true" style="width:11px;height:11px;border-radius:50%;background:var(--ish-accent,#e85d4a)"></span>
+          <span style="font-size:14.5px;color:rgba(255,255,255,.82)">{{ t.why.quoteSub }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section aria-labelledby="priv-h" style="background:#f0faf6">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 24%;max-width:1100px;margin:0 auto;padding:clamp(48px,6vw,80px) 22px;display:flex;gap:clamp(28px,4vw,56px);flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:1 1 320px;min-width:280px">
+      <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;background:#e4f3ec;border-radius:999px;font:600 14px/1 'Public Sans',sans-serif;color:#065f46"><span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#047857;transform:rotate(45deg)"></span>{{ t.privacy.kicker }}</span>
+      <h2 id="priv-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(26px,3.2vw,38px);letter-spacing:-.02em;margin:18px 0 0;color:#16241d">{{ t.privacy.title }}</h2>
+      <p style="margin:14px 0 0;font-size:17px;line-height:1.62;color:#33453c;max-width:32em;text-wrap:pretty">{{ t.privacy.body }}</p>
+    </div>
+    <ul style="flex:1 1 300px;min-width:270px;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px">
+      <sc-for list="{{ t.privacy.bullets }}" as="b" hint-placeholder-count="3">
+        <li style="display:flex;gap:13px;align-items:flex-start;background:#fff;border:1px solid #d8f0e6;border-radius:14px;padding:16px 18px">
+          <span aria-hidden="true" style="flex:none;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#e4f3ec;color:#047857;font:800 15px/1 'Public Sans',sans-serif;margin-top:1px">✓</span>
+          <span style="font-size:16px;line-height:1.5;color:#2a3a33">{{ b }}</span>
+        </li>
+      </sc-for>
+    </ul>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section aria-labelledby="uc-h" style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 22px">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 24%">
+    <h2 id="uc-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.02em;margin:0;color:#1a1523">{{ t.usecases.title }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:36px">
+      <sc-for list="{{ t.usecases.items }}" as="u" hint-placeholder-count="5">
+        <div style="background:#fff;border:1px solid #ece2f7;border-radius:18px;padding:24px;transition:transform .18s ease,box-shadow .18s ease" style-hover="transform:translateY(-3px);box-shadow:0 16px 36px -22px rgba(76,29,149,.5)">
+          <span aria-hidden="true" style="display:inline-block;width:38px;height:38px;border-radius:11px;background:#f1eafa;border:1px solid #e2d5f5;margin-bottom:15px;position:relative">
+            <span style="position:absolute;inset:13px;border-radius:50%;background:var(--ish-pri,#6d28d9)"></span>
+          </span>
+          <h3 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:19px;color:#1a1523">{{ u.title }}</h3>
+          <p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:#5b5470">{{ u.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST / JOIN -->
+<section id="join" aria-labelledby="join-h" style="background:var(--ish-pri-deep,#4c1d95)">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 26%;max-width:760px;margin:0 auto;padding:clamp(56px,7vw,96px) 22px;text-align:center">
+    <h2 id="join-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:0;color:#fff;text-wrap:balance">{{ t.try.title }}</h2>
+    <p style="margin:16px 0 0;font-size:clamp(16px,1.7vw,19px);line-height:1.55;color:#e3d6fb;max-width:30em;margin-left:auto;margin-right:auto">{{ t.try.sub }}</p>
+    <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:30px">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:520px;margin:0 auto">
+          <label for="ish-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">{{ t.try.placeholder }}</label>
+          <input id="ish-email" type="email" inputmode="email" autocomplete="email" placeholder="{{ t.try.placeholder }}" value="{{ email }}" onInput="{{ onEmail }}" onKeyDown="{{ onKeyEmail }}" aria-invalid="{{ hasError }}" aria-describedby="ish-email-err" style="flex:1 1 240px;min-width:200px;min-height:54px;padding:15px 18px;border:1.5px solid transparent;border-radius:13px;background:#fff;color:#1c1726;font:500 17px/1.2 'Public Sans',sans-serif;outline:none">
+          <button type="button" onClick="{{ submit }}" style="flex:none;min-height:54px;padding:15px 30px;background:var(--ish-accent,#e85d4a);color:#fff;border:none;border-radius:13px;font:700 17px/1 'Public Sans',sans-serif;cursor:pointer;box-shadow:0 7px 20px rgba(0,0,0,.22);transition:transform .18s ease,filter .18s ease" style-hover="transform:translateY(-2px);filter:brightness(1.06)">{{ t.try.button }}</button>
+        </div>
+        <p id="ish-email-err" role="alert" style="margin:14px 0 0;min-height:20px;font-size:15px;font-weight:600;color:#ffd9d1">
+          <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}"><span>{{ emailError }}</span></sc-if>
+        </p>
+      </div>
+    </sc-if>
+    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="margin-top:30px;display:inline-flex;align-items:center;gap:13px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:20px 26px">
+        <span aria-hidden="true" style="flex:none;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:#34d399;color:#064e3b;font:800 20px/1 'Public Sans',sans-serif">✓</span>
+        <span style="font-size:18px;font-weight:600;color:#fff;text-align:left">{{ t.try.success }}</span>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" aria-labelledby="faq-h" style="max-width:840px;margin:0 auto;padding:clamp(56px,7vw,96px) 22px">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 22%">
+    <h2 id="faq-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,42px);letter-spacing:-.02em;margin:0 0 30px;color:#1a1523;text-align:center">{{ t.faq.title }}</h2>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ faqItems }}" as="item" hint-placeholder-count="7">
+        <div style="background:#fff;border:1px solid #ece2f7;border-radius:16px;overflow:hidden">
+          <button type="button" onClick="{{ item.toggle }}" aria-expanded="{{ item.open }}" style="width:100%;min-height:60px;display:flex;align-items:center;gap:16px;padding:18px 22px;background:transparent;border:none;cursor:pointer;text-align:left;font:700 18px/1.35 'Public Sans',sans-serif;color:#1a1523">
+            <span style="flex:1">{{ item.q }}</span>
+            <span aria-hidden="true" style="flex:none;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#f1eafa;color:var(--ish-pri-deep,#4c1d95);font-size:16px;transition:transform .2s ease;transform:{{ item.chev }}">▾</span>
+          </button>
+          <sc-if value="{{ item.open }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;padding:0 22px 20px;font-size:16px;line-height:1.62;color:#5b5470">{{ item.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section aria-labelledby="final-h" style="max-width:1200px;margin:0 auto;padding:clamp(40px,5vw,72px) 22px">
+  <div data-reveal style="animation:ish-reveal both;animation-timeline:view();animation-range:entry 0% cover 26%;background:radial-gradient(900px 360px at 80% 0%, #f3ecff, #fff);border:1px solid #ece2f7;border-radius:26px;padding:clamp(40px,6vw,72px) clamp(26px,5vw,64px);text-align:center">
+    <h2 id="final-h" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,4vw,48px);line-height:1.06;letter-spacing:-.025em;margin:0;color:#1a1523;text-wrap:balance;max-width:18em;margin-left:auto;margin-right:auto">{{ t.finalCta.title }}</h2>
+    <p style="margin:18px auto 0;font-size:clamp(16px,1.7vw,20px);color:#5b5470;max-width:34em">{{ t.finalCta.sub }}</p>
+    <a href="#join" style="display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:16px 34px;margin-top:30px;background:var(--ish-pri,#6d28d9);color:#fff;border-radius:14px;font:700 18px/1 'Public Sans',sans-serif;text-decoration:none;box-shadow:0 9px 24px rgba(109,40,217,.28);transition:transform .18s ease,box-shadow .18s ease" style-hover="transform:translateY(-2px);box-shadow:0 14px 32px rgba(109,40,217,.36)">{{ t.finalCta.button }}</a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer role="contentinfo" style="background:#16121f;color:#cfc6e0">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(40px,5vw,64px) 22px">
+    <div style="display:flex;gap:36px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:1 1 280px;min-width:240px">
+        <div style="display:inline-flex;align-items:center;gap:11px">
+          <span aria-hidden="true" style="width:26px;height:26px;border-radius:8px;background:var(--ish-pri,#6d28d9);display:inline-block;transform:rotate(45deg);box-shadow:inset 0 0 0 5px rgba(22,18,31,.9)"></span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;color:#fff">Ishora</span>
+        </div>
+        <p style="margin:14px 0 0;font-size:15px;line-height:1.6;color:#a99fc0;max-width:26em">{{ t.footer.tagline }}</p>
+        <div style="display:flex;gap:10px;margin-top:18px">
+          <a href="#top" aria-label="Telegram" style="display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:1px solid #322a44;border-radius:11px;color:#cfc6e0;text-decoration:none;font:600 13px/1 'Public Sans',sans-serif;transition:border-color .15s ease,color .15s ease" style-hover="border-color:var(--ish-pri,#6d28d9);color:#fff">TG</a>
+          <a href="#top" aria-label="Instagram" style="display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:1px solid #322a44;border-radius:11px;color:#cfc6e0;text-decoration:none;font:600 13px/1 'Public Sans',sans-serif;transition:border-color .15s ease,color .15s ease" style-hover="border-color:var(--ish-pri,#6d28d9);color:#fff">IG</a>
+          <a href="#top" aria-label="YouTube" style="display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:1px solid #322a44;border-radius:11px;color:#cfc6e0;text-decoration:none;font:600 13px/1 'Public Sans',sans-serif;transition:border-color .15s ease,color .15s ease" style-hover="border-color:var(--ish-pri,#6d28d9);color:#fff">YT</a>
+        </div>
+      </div>
+      <nav aria-label="{{ t.footer.nav }}" style="flex:0 1 auto;display:flex;flex-direction:column;gap:11px">
+        <span style="font:700 13px/1 'Public Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#7b7095">{{ t.footer.nav }}</span>
+        <a href="#how" style="color:#cfc6e0;text-decoration:none;font-size:15px" style-hover="color:#fff">{{ t.nav.how }}</a>
+        <a href="#features" style="color:#cfc6e0;text-decoration:none;font-size:15px" style-hover="color:#fff">{{ t.nav.features }}</a>
+        <a href="#tech" style="color:#cfc6e0;text-decoration:none;font-size:15px" style-hover="color:#fff">{{ t.nav.tech }}</a>
+        <a href="#faq" style="color:#cfc6e0;text-decoration:none;font-size:15px" style-hover="color:#fff">{{ t.nav.faq }}</a>
+      </nav>
+      <div style="flex:0 1 auto;display:flex;flex-direction:column;gap:11px">
+        <span style="font:700 13px/1 'Public Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#7b7095">{{ t.footer.contact }}</span>
+        <a href="/cdn-cgi/l/email-protection#d5a6b4b9bab895bca6bdbaa7b4fba0af" style="color:#cfc6e0;text-decoration:none;font-size:15px" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="255644494a48654c564d4a57440b505f">[email&#160;protected]</span></a>
+        <a href="#top" style="color:#cfc6e0;text-decoration:none;font-size:15px" style-hover="color:#fff">{{ t.footer.a11y }}</a>
+        <div role="group" aria-label="Til" style="display:flex;gap:5px;margin-top:6px">
+          <sc-for list="{{ langs }}" as="lang" hint-placeholder-count="3">
+            <button type="button" onClick="{{ lang.select }}" aria-pressed="{{ lang.active }}" style="{{ lang.footStyle }}">{{ lang.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:36px;padding-top:22px;border-top:1px solid #2a2438;display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center">
+      <span style="font-size:13.5px;color:#8a7fa6">© 2026 Ishora. {{ t.footer.rights }}</span>
+      <span style="font-size:13.5px;color:#8a7fa6">{{ t.footer.a11yNote }}</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;uz&quot;,&quot;ru&quot;,&quot;en&quot;],&quot;default&quot;:&quot;uz&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showWelcome&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Violet&quot;,&quot;Teal&quot;,&quot;Indigo&quot;],&quot;default&quot;:&quot;Violet&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = {
+    lang: (this.props.defaultLang || 'uz'),
+    openFaq: 0,
+    email: '',
+    submitted: false,
+    emailError: '',
+    welcomeOpen: false
+  };
+
+  themes = {
+    Violet: { pri:'#6d28d9', deep:'#4c1d95', accent:'#e85d4a' },
+    Teal:   { pri:'#0d9488', deep:'#115e59', accent:'#f59e0b' },
+    Indigo: { pri:'#4f46e5', deep:'#3730a3', accent:'#fb7185' }
+  };
+
+  applyTheme() {
+    const th = this.themes[this.props.theme] || this.themes.Violet;
+    const r = document.documentElement.style;
+    r.setProperty('--ish-pri', th.pri);
+    r.setProperty('--ish-pri-deep', th.deep);
+    r.setProperty('--ish-accent', th.accent);
+  }
+  componentDidMount() { this.applyTheme(); }
+  componentDidUpdate(prev) { if (prev.theme !== this.props.theme) this.applyTheme(); }
+
+  selectLang(code) { this.setState({ lang: code }); }
+  toggleFaq(i) { this.setState(s => ({ openFaq: s.openFaq === i ? null : i })); }
+  onEmail(e) { this.setState({ email: e.target.value, emailError: '' }); }
+  submit() {
+    const v = (this.state.email || '').trim();
+    const t = this.T[this.state.lang];
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { this.setState({ emailError: t.try.error }); return; }
+    this.setState({ submitted: true, emailError: '' });
+  }
+  onKeyEmail(e) { if (e.key === 'Enter') this.submit(); }
+  toggleWelcome() { this.setState(s => ({ welcomeOpen: !s.welcomeOpen })); }
+
+  T = {
+    uz: {
+      skip: 'Asosiy mazmunga oʻtish',
+      cta: 'Erta kirishga yozilish',
+      nav: { how: 'Qanday ishlaydi', features: 'Imkoniyatlar', tech: 'Texnologiya', faq: 'Savollar' },
+      hero: {
+        kicker: 'Oʻzbek imo-ishora tili',
+        headline: 'Imo-ishorani soʻzga, soʻzni imo-ishoraga.',
+        sub: 'Brauzerda ishlaydigan ikki tomonlama tarjimon — yozing yoki gapiring, imo-ishorani koʻring; imo-ishora qiling, matnni oʻqing.',
+        primary: 'Erta kirishga yozilish',
+        secondary: 'Demoni koʻrish',
+        welcome: 'Imo-ishorada xush kelibsiz',
+        welcomeNote: 'Bu yerda imo-ishorali salomlashuv videosi boʻladi — eshitish qobiliyati cheklangan hamjamiyatga hurmat belgisi.',
+        points: ['Ikki tomonlama tarjima', 'Brauzerda — oʻrnatishsiz', 'Real vaqt kamerasi']
+      },
+      demo: { d1label: 'Matn → imo-ishora', d1text: 'Assalomu alaykum', d1cap: 'signing avatar', d2label: 'Imo-ishora → matn', d2cap: 'camera feed', d2text: 'Yordamingiz uchun rahmat', rec: 'JONLI' },
+      trust: { line: 'Oʻzbek imo-ishora tilida oʻrgatilgan, eshitish qobiliyati cheklangan hamjamiyat bilan birga ishlab chiqilgan.', partners: 'Hamkorlar' },
+      how: {
+        title: 'Qanday ishlaydi', sub: 'Ikki yoʻnalishda, real vaqt rejimida.',
+        flow1: { title: 'Oʻzbekcha → imo-ishora', steps: ['Matn yozing yoki ovoz bilan gapiring', 'Sunʼiy intellekt tarjima qiladi', 'Avatar imo-ishorada koʻrsatadi'] },
+        flow2: { title: 'Imo-ishora → oʻzbekcha', steps: ['Kameraga imo-ishora qiling', 'Model harakatni taniydi', 'Matn ekranda paydo boʻladi'] }
+      },
+      features: { title: 'Imkoniyatlar', items: [
+        { title: 'Ikki tomonlama tarjima', desc: 'Matndan imo-ishoraga va imo-ishoradan matnga.' },
+        { title: 'Real vaqt kamerasi', desc: 'Kamera imo-ishorani jonli taniydi.' },
+        { title: 'Ovozli kiritish', desc: 'Yozish oʻrniga gapiring.' },
+        { title: 'Brauzerda ishlaydi', desc: 'Oʻrnatish shart emas — havoladan oching.' },
+        { title: 'Koʻp tilli interfeys', desc: 'Oʻzbek, rus va ingliz tillari.' },
+        { title: 'Oflayn va mobil', desc: 'Yoʻl xaritasida rejalashtirilgan.', tag: 'Rejada' }
+      ] },
+      why: {
+        title: 'Nega Oʻzbek imo-ishora tili muhim',
+        body: [
+          'Modelimiz aynan Oʻzbek imo-ishora tili uchun yaratilgan — ASL yoki umumiy modeldan moslashtirilmagan.',
+          'U hamjamiyat bilan birga ishlab chiqilgan, shuning uchun haqiqiy va ishonchli.',
+          'Bu Oʻzbekiston va Markaziy Osiyoda muloqotdagi uzilishni bartaraf etishga yordam beradi.'
+        ],
+        quote: 'Bu til boshqa biror tildan emas — oʻzimiznikidan oʻrganilgan.',
+        quoteSub: 'Hamjamiyat bilan birga yaratilgan'
+      },
+      privacy: {
+        kicker: 'Sizning nazoratingizda',
+        title: 'Maxfiylik va ishonch',
+        body: 'Kamerangiz toʻliq sizning nazoratingizda. Video qanday qayta ishlanishi: [CONFIRM] — videoni saqlamaymiz / qayta ishlash qurilmangizda amalga oshiriladi. Aniq bayonot jamoa tomonidan tasdiqlanadi.',
+        bullets: ['Kamera faqat siz boshlaganingizda yoqiladi', 'Hech qanday ovoz avtomatik oʻynamaydi', '[CONFIRM]: videongiz saqlanmaydi']
+      },
+      usecases: { title: 'Qayerda yordam beradi', items: [
+        { title: 'Oilalar', desc: 'Yaqinlaringiz bilan erkin muloqot.' },
+        { title: 'Taʼlim', desc: 'Oʻqituvchilar va oʻquvchilar uchun.' },
+        { title: 'Sogʻliqni saqlash', desc: 'Shifokor bilan tushunarli suhbat.' },
+        { title: 'Davlat xizmatlari', desc: 'Bank, klinika va idoralarda.' },
+        { title: 'Ish joyi', desc: 'Hamkasblar bilan hamkorlik.' }
+      ] },
+      try: { title: 'Erta kirishga birinchilardan boʻlib yoziling', sub: 'Ishga tushganda sizga birinchi boʻlib xabar beramiz. Spam yoʻq.', placeholder: 'Email manzilingiz', button: 'Yozilish', success: 'Rahmat! Tez orada siz bilan bogʻlanamiz.', error: 'Toʻgʻri email manzilini kiriting.' },
+      faq: { title: 'Tez-tez soʻraladigan savollar', items: [
+        { q: 'Tarjima qanchalik aniq?', a: 'Model doimiy oʻrganib boradi. Lugʻat kengaymoqda; baʼzi murakkab iboralar hali ishlanmoqda.' },
+        { q: 'Qanday lugʻat qoʻllab-quvvatlanadi?', a: 'Kundalik muloqot iboralari va kengayib borayotgan soʻzlar bazasi.' },
+        { q: 'Qaysi qurilma va brauzerlar?', a: 'Kompyuter va telefondagi zamonaviy brauzerlar. Oʻrnatish shart emas.' },
+        { q: 'Videolarim saqlanadimi?', a: '[CONFIRM] — jamoa maxfiylik siyosatini tasdiqlaydi va aniq javob beradi.' },
+        { q: 'Bu pullikmi?', a: 'Erta kirish bepul. Narxlar keyinroq eʼlon qilinadi.' },
+        { q: 'Bu ASLmi?', a: 'Yoʻq. Bu aynan Oʻzbek imo-ishora tili uchun yaratilgan.' },
+        { q: 'Kim ishlab chiqqan?', a: 'Eshitish qobiliyati cheklangan hamjamiyat bilan birga ishlab chiqilgan.' }
+      ] },
+      finalCta: { title: 'Har bir suhbat muhim. Keling, ularni birga ochamiz.', sub: 'Oʻzbek imo-ishora tili uchun yaratilgan tarjimon.', button: 'Erta kirishga yozilish' },
+      footer: { tagline: 'Oʻzbek imo-ishora tili uchun tarjimon.', nav: 'Sahifa', contact: 'Aloqa', a11y: 'Foydalanish imkoniyati', rights: 'Barcha huquqlar himoyalangan.', a11yNote: 'WCAG 2.2 AA ga muvofiq ishlab chiqilgan.' }
+    },
+
+    ru: {
+      skip: 'Перейти к основному содержанию',
+      cta: 'Ранний доступ',
+      nav: { how: 'Как это работает', features: 'Возможности', tech: 'Технология', faq: 'Вопросы' },
+      hero: {
+        kicker: 'Узбекский жестовый язык',
+        headline: 'Жест — в слово, слово — в жест.',
+        sub: 'Двусторонний переводчик в браузере — печатайте или говорите и смотрите жест; покажите жест и читайте текст.',
+        primary: 'Записаться в ранний доступ',
+        secondary: 'Смотреть демо',
+        welcome: 'Приветствие на жестовом языке',
+        welcomeNote: 'Здесь будет видео-приветствие на жестовом языке — знак уважения к сообществу глухих.',
+        points: ['Двусторонний перевод', 'В браузере — без установки', 'Камера в реальном времени']
+      },
+      demo: { d1label: 'Текст → жест', d1text: 'Здравствуйте', d1cap: 'signing avatar', d2label: 'Жест → текст', d2cap: 'camera feed', d2text: 'Спасибо за помощь', rec: 'ЭФИР' },
+      trust: { line: 'Обучен на узбекском жестовом языке, создан вместе с сообществом глухих.', partners: 'Партнёры' },
+      how: {
+        title: 'Как это работает', sub: 'В двух направлениях, в реальном времени.',
+        flow1: { title: 'Узбекский → жест', steps: ['Напишите текст или скажите голосом', 'ИИ выполняет перевод', 'Аватар показывает жестами'] },
+        flow2: { title: 'Жест → узбекский', steps: ['Покажите жест в камеру', 'Модель распознаёт движение', 'Текст появляется на экране'] }
+      },
+      features: { title: 'Возможности', items: [
+        { title: 'Двусторонний перевод', desc: 'Из текста в жест и из жеста в текст.' },
+        { title: 'Камера в реальном времени', desc: 'Распознаёт жесты вживую.' },
+        { title: 'Голосовой ввод', desc: 'Говорите вместо набора.' },
+        { title: 'Работает в браузере', desc: 'Без установки — просто откройте ссылку.' },
+        { title: 'Многоязычный интерфейс', desc: 'Узбекский, русский, английский.' },
+        { title: 'Офлайн и мобильный', desc: 'В планах развития.', tag: 'В планах' }
+      ] },
+      why: {
+        title: 'Почему это важно',
+        body: [
+          'Наша модель создана именно для узбекского жестового языка — не адаптирована из ASL или общей модели.',
+          'Она разработана вместе с сообществом — поэтому достоверна и заслуживает доверия.',
+          'Это помогает закрыть разрыв в общении в Узбекистане и Центральной Азии.'
+        ],
+        quote: 'Этот язык изучен не из чужого — из нашего собственного.',
+        quoteSub: 'Создано вместе с сообществом'
+      },
+      privacy: {
+        kicker: 'Под вашим контролем',
+        title: 'Конфиденциальность и доверие',
+        body: 'Камера полностью под вашим контролем. Как обрабатывается видео: [CONFIRM] — мы не храним видео / обработка происходит на устройстве. Точная формулировка подтверждается командой.',
+        bullets: ['Камера включается только по вашему действию', 'Звук никогда не воспроизводится автоматически', '[CONFIRM]: ваше видео не сохраняется']
+      },
+      usecases: { title: 'Где это помогает', items: [
+        { title: 'Семьи', desc: 'Свободное общение с близкими.' },
+        { title: 'Образование', desc: 'Для учителей и учеников.' },
+        { title: 'Здравоохранение', desc: 'Понятный разговор с врачом.' },
+        { title: 'Госуслуги', desc: 'Банки, клиники, ведомства.' },
+        { title: 'Работа', desc: 'Сотрудничество с коллегами.' }
+      ] },
+      try: { title: 'Первыми получите ранний доступ', sub: 'Сообщим вам первыми, когда запустимся. Без спама.', placeholder: 'Ваш email', button: 'Записаться', success: 'Спасибо! Скоро свяжемся с вами.', error: 'Введите корректный email.' },
+      faq: { title: 'Частые вопросы', items: [
+        { q: 'Насколько точен перевод?', a: 'Модель постоянно учится. Словарь расширяется; сложные фразы ещё в работе.' },
+        { q: 'Какой словарь поддерживается?', a: 'Повседневные фразы и растущая база слов.' },
+        { q: 'Какие устройства и браузеры?', a: 'Современные браузеры на компьютере и телефоне. Без установки.' },
+        { q: 'Сохраняются ли мои видео?', a: '[CONFIRM] — команда подтвердит политику конфиденциальности.' },
+        { q: 'Это платно?', a: 'Ранний доступ бесплатный. Цены объявим позже.' },
+        { q: 'Это ASL?', a: 'Нет. Создано именно для узбекского жестового языка.' },
+        { q: 'Кто разработал?', a: 'Создано вместе с сообществом глухих.' }
+      ] },
+      finalCta: { title: 'Каждый разговор важен. Откроем их вместе.', sub: 'Переводчик, созданный для узбекского жестового языка.', button: 'Записаться в ранний доступ' },
+      footer: { tagline: 'Переводчик для узбекского жестового языка.', nav: 'Страница', contact: 'Контакты', a11y: 'Доступность', rights: 'Все права защищены.', a11yNote: 'Соответствует WCAG 2.2 AA.' }
+    },
+
+    en: {
+      skip: 'Skip to main content',
+      cta: 'Join early access',
+      nav: { how: 'How it works', features: 'Features', tech: 'Technology', faq: 'FAQ' },
+      hero: {
+        kicker: 'Uzbek Sign Language',
+        headline: 'Sign to word, word to sign.',
+        sub: 'A bidirectional, browser-based translator — type or speak and see the sign; sign and read the text.',
+        primary: 'Join early access',
+        secondary: 'Watch demo',
+        welcome: 'Welcome in sign language',
+        welcomeNote: 'A signed welcome video will live here — a meaningful hello to the Deaf community.',
+        points: ['Bidirectional translation', 'In the browser — no install', 'Real-time camera']
+      },
+      demo: { d1label: 'Text → sign', d1text: 'Hello', d1cap: 'signing avatar', d2label: 'Sign → text', d2cap: 'camera feed', d2text: 'Thank you for your help', rec: 'LIVE' },
+      trust: { line: 'Trained on Uzbek Sign Language, built together with the Deaf community.', partners: 'Partners' },
+      how: {
+        title: 'How it works', sub: 'Both directions, in real time.',
+        flow1: { title: 'Uzbek → sign', steps: ['Type text or speak with your voice', 'AI translates the message', 'An avatar signs it back'] },
+        flow2: { title: 'Sign → Uzbek', steps: ['Sign to the camera', 'The model recognizes the motion', 'Text appears on screen'] }
+      },
+      features: { title: 'Features', items: [
+        { title: 'Bidirectional translation', desc: 'Text to sign and sign to text.' },
+        { title: 'Real-time camera', desc: 'Recognizes signing live.' },
+        { title: 'Voice input', desc: 'Speak instead of typing.' },
+        { title: 'Works in the browser', desc: 'No install — just open a link.' },
+        { title: 'Multilingual UI', desc: 'Uzbek, Russian and English.' },
+        { title: 'Offline & mobile', desc: 'Planned on the roadmap.', tag: 'Roadmap' }
+      ] },
+      why: {
+        title: 'Why Uzbek Sign Language matters',
+        body: [
+          'Our model is built specifically for Uzbek Sign Language — not adapted from ASL or a generic model.',
+          'It is developed together with the community, so it is authentic and trustworthy.',
+          'It helps close the communication gap across Uzbekistan and Central Asia.'
+        ],
+        quote: 'This language is learned from our own — not borrowed from another.',
+        quoteSub: 'Built together with the community'
+      },
+      privacy: {
+        kicker: 'In your control',
+        title: 'Privacy & trust',
+        body: 'Your camera stays fully in your control. How video is handled: [CONFIRM] — we don\u2019t store your video / processing happens on-device. The exact statement is to be verified by the team.',
+        bullets: ['The camera turns on only when you start it', 'No audio ever plays automatically', '[CONFIRM]: your video is not stored']
+      },
+      usecases: { title: 'Where it helps', items: [
+        { title: 'Families', desc: 'Communicate freely with loved ones.' },
+        { title: 'Education', desc: 'For teachers and students.' },
+        { title: 'Healthcare', desc: 'Clear conversations with a doctor.' },
+        { title: 'Public services', desc: 'Banks, clinics and agencies.' },
+        { title: 'Workplace', desc: 'Collaborate with colleagues.' }
+      ] },
+      try: { title: 'Be first to get early access', sub: 'We\u2019ll let you know first when we launch. No spam.', placeholder: 'Your email address', button: 'Join', success: 'Thanks! We\u2019ll be in touch soon.', error: 'Please enter a valid email address.' },
+      faq: { title: 'Frequently asked questions', items: [
+        { q: 'How accurate is the translation?', a: 'The model keeps learning. Vocabulary is growing; some complex phrases are still in progress.' },
+        { q: 'What vocabulary is supported?', a: 'Everyday conversational phrases and a growing word base.' },
+        { q: 'Which devices and browsers?', a: 'Modern browsers on computer and phone. No install needed.' },
+        { q: 'Are my videos stored?', a: '[CONFIRM] — the team will confirm the privacy policy.' },
+        { q: 'Is it free?', a: 'Early access is free. Pricing will be announced later.' },
+        { q: 'Is this ASL?', a: 'No. It is built specifically for Uzbek Sign Language.' },
+        { q: 'Who built it?', a: 'Built together with the Deaf community.' }
+      ] },
+      finalCta: { title: 'Every conversation matters. Let\u2019s open them, together.', sub: 'A translator built for Uzbek Sign Language.', button: 'Join early access' },
+      footer: { tagline: 'A translator for Uzbek Sign Language.', nav: 'Page', contact: 'Contact', a11y: 'Accessibility', rights: 'All rights reserved.', a11yNote: 'Built to meet WCAG 2.2 AA.' }
+    }
+  };
+
+  renderVals() {
+    const lang = this.state.lang;
+    const t = this.T[lang] || this.T.uz;
+
+    const langs = [['uz', 'UZ'], ['ru', 'RU'], ['en', 'EN']].map(([code, label]) => {
+      const active = lang === code;
+      return {
+        code, label, active,
+        select: () => this.selectLang(code),
+        style: `display:inline-flex;align-items:center;justify-content:center;min-width:42px;min-height:36px;padding:6px 13px;border:none;background:${active ? 'var(--ish-pri,#6d28d9)' : 'transparent'};color:${active ? '#fff' : 'var(--ish-pri-deep,#4c1d95)'};border-radius:999px;font:700 13px/1 'Public Sans',sans-serif;cursor:pointer;letter-spacing:.05em;transition:background .15s ease,color .15s ease`,
+        footStyle: `display:inline-flex;align-items:center;justify-content:center;min-width:42px;min-height:36px;padding:6px 13px;border:1px solid ${active ? 'var(--ish-pri,#6d28d9)' : '#3a3250'};background:${active ? 'var(--ish-pri,#6d28d9)' : 'transparent'};color:${active ? '#fff' : '#cfc6e0'};border-radius:999px;font:700 13px/1 'Public Sans',sans-serif;cursor:pointer;letter-spacing:.05em`
+      };
+    });
+
+    const flow1Steps = t.how.flow1.steps.map((s, i) => ({ n: String(i + 1), text: s }));
+    const flow2Steps = t.how.flow2.steps.map((s, i) => ({ n: String(i + 1), text: s }));
+
+    const faqItems = t.faq.items.map((f, i) => {
+      const open = this.state.openFaq === i;
+      return { q: f.q, a: f.a, open, toggle: () => this.toggleFaq(i), chev: open ? 'rotate(180deg)' : 'rotate(0deg)' };
+    });
+
+    return {
+      t, langs: langs, flow1Steps, flow2Steps, faqItems,
+      email: this.state.email,
+      emailError: this.state.emailError,
+      hasError: !!this.state.emailError,
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      welcomeOpen: this.state.welcomeOpen,
+      welcomeEnabled: (this.props.showWelcome ?? true),
+      onEmail: (e) => this.onEmail(e),
+      onKeyEmail: (e) => this.onKeyEmail(e),
+      submit: () => this.submit(),
+      toggleWelcome: () => this.toggleWelcome()
+    };
+  }
+}
+</script>
+</body>
+</html>

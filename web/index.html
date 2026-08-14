@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ishora — Imo-ishora → matn (jonli)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--pri:#6d28d9;--deep:#4c1d95;--accent:#e85d4a;--bg:#faf8f5;--ink:#1c1726}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--deep)}
+  header{position:sticky;top:0;z-index:10;background:rgba(250,248,245,.85);backdrop-filter:blur(10px);border-bottom:1px solid #ece5f5}
+  .bar{max-width:1100px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:14px}
+  .logo{display:inline-flex;align-items:center;gap:11px;text-decoration:none}
+  .logo .mark{width:26px;height:26px;border-radius:8px;background:var(--pri);transform:rotate(45deg);box-shadow:inset 0 0 0 5px rgba(255,255,255,.85)}
+  .logo .name{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--ink)}
+  .back{margin-left:auto;font:600 15px/1 'Public Sans';color:#3b3450;text-decoration:none;padding:9px 13px;border-radius:9px}
+  .back:hover{background:#f1eafa}
+  main{max-width:1100px;margin:0 auto;padding:clamp(28px,5vw,56px) 22px}
+  .kicker{display:inline-flex;align-items:center;gap:9px;padding:7px 14px;background:#f1eafa;border:1px solid #e2d5f5;border-radius:999px;font:600 14px/1 'Public Sans';color:var(--deep)}
+  .kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--pri);transform:rotate(45deg)}
+  h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,5vw,50px);line-height:1.04;letter-spacing:-.025em;margin:18px 0 0}
+  .lead{margin:14px 0 0;font-size:clamp(16px,1.7vw,20px);color:#4a4360;max-width:34em}
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:34px}
+  @media (max-width:840px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid #ece2f7;border-radius:22px;padding:16px;box-shadow:0 24px 60px -32px rgba(76,29,149,.4)}
+  .stage{position:relative;border-radius:16px;overflow:hidden;background:#0e0a16;aspect-ratio:4/3}
+  video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block}
+  .rec{position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:rgba(14,10,22,.6);color:#fff;font:700 12px/1 'Public Sans';letter-spacing:.06em}
+  .rec .b{width:9px;height:9px;border-radius:50%;background:#9aa}
+  .rec.live .b{background:#34d399;animation:blink 1.2s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+  .overlay{position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(180deg,transparent,rgba(14,10,22,.82));color:#fff}
+  .gloss-now{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(22px,4vw,38px);line-height:1.1;min-height:1.1em;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+  .gloss-now.flash{animation:pop .35s ease}
+  @keyframes pop{from{transform:scale(.8);opacity:.4}to{transform:none;opacity:1}}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  button{font:700 16px/1 'Public Sans';cursor:pointer;border:none;border-radius:12px;min-height:48px;padding:13px 22px;transition:transform .15s ease,filter .15s ease,background .15s ease}
+  button:hover{transform:translateY(-2px)}
+  .btn-pri{background:var(--pri);color:#fff;box-shadow:0 7px 20px rgba(109,40,217,.24)}
+  .btn-stop{background:var(--accent);color:#fff}
+  .btn-ghost{background:#fff;color:var(--deep);border:1.5px solid #e0d3f3}
+  .panel{display:flex;flex-direction:column}
+  .panel h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;margin:4px 4px 12px}
+  .text-out{flex:1;min-height:170px;background:#f8f5fd;border:1px solid #efe6fa;border-radius:14px;padding:16px 18px;font-size:20px;line-height:1.5;color:var(--ink)}
+  .text-out .ph{color:#9a8fb5}
+  .status{display:flex;align-items:center;gap:9px;margin:14px 4px 0;font:600 14px/1 'Public Sans';color:#5b5470}
+  .status .s{width:9px;height:9px;border-radius:50%;background:#c9bfe0}
+  .status.on .s{background:#34d399}
+  .status.err .s{background:var(--accent)}
+  .hint{margin:16px 4px 0;font-size:13.5px;color:#7a6f95;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="/"><span class="mark" aria-hidden="true"></span><span class="name">Ishora</span></a>
+    <a class="back" href="/">← Landing</a>
+  </div>
+</header>
+
+<main>
+  <span class="kicker"><span class="dot" aria-hidden="true"></span>Imo-ishora → matn · jonli</span>
+  <h1>Kameraga imo-ishora qiling — matnni real vaqtda o'qing.</h1>
+  <p class="lead">Kameradan olingan kadrlar WebSocket orqali MViT modeliga yuboriladi va tanilgan so'zlar shu yerda paydo bo'ladi.</p>
+
+  <div class="grid">
+    <!-- Kamera -->
+    <div class="card">
+      <div class="stage">
+        <video id="video" autoplay playsinline muted></video>
+        <span class="rec" id="rec"><span class="b"></span><span id="recLabel">KUTILMOQDA</span></span>
+        <div class="overlay"><div class="gloss-now" id="glossNow"></div></div>
+      </div>
+      <div class="controls">
+        <button class="btn-pri" id="startBtn">Kamerani yoqish</button>
+        <button class="btn-stop" id="stopBtn" hidden>To'xtatish</button>
+        <button class="btn-ghost" id="clearBtn">Matnni tozalash</button>
+      </div>
+      <div class="status" id="status"><span class="s"></span><span id="statusText">Ulanmagan</span></div>
+    </div>
+
+    <!-- Matn -->
+    <div class="card panel">
+      <h2>Tanilgan matn</h2>
+      <div class="text-out" id="textOut"><span class="ph">Bu yerda imo-ishoralar matnga aylanadi…</span></div>
+      <p class="hint">Maslahat: har bir so'z uchun ~2 soniya barqaror imo-ishora qiling. Model CPU'da har bashoratga bir necha soniya sarflaydi.</p>
+    </div>
+  </div>
+</main>
+
+<canvas id="canvas" width="320" height="240" hidden></canvas>
+
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const startBtn = document.getElementById('startBtn');
+const stopBtn = document.getElementById('stopBtn');
+const clearBtn = document.getElementById('clearBtn');
+const glossNow = document.getElementById('glossNow');
+const textOut = document.getElementById('textOut');
+const rec = document.getElementById('rec');
+const recLabel = document.getElementById('recLabel');
+const statusEl = document.getElementById('status');
+const statusText = document.getElementById('statusText');
+
+let ws = null, stream = null, sendTimer = null;
+const SEND_FPS = 14;
+
+function setStatus(text, cls){
+  statusText.textContent = text;
+  statusEl.className = 'status' + (cls ? ' ' + cls : '');
+}
+
+function connect(){
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  ws = new WebSocket(`${proto}://${location.host}/ws`);
+  ws.onopen = () => setStatus('Ulandi — imo-ishora qiling', 'on');
+  ws.onclose = () => setStatus('Aloqa uzildi', 'err');
+  ws.onerror = () => setStatus('WebSocket xatosi', 'err');
+  ws.onmessage = (ev) => {
+    const d = JSON.parse(ev.data);
+    if (d.gloss && d.gloss !== '---'){
+      glossNow.textContent = d.gloss;
+      glossNow.classList.remove('flash'); void glossNow.offsetWidth; glossNow.classList.add('flash');
+    }
+    if (d.sentence !== undefined){
+      textOut.innerHTML = d.sentence
+        ? d.sentence.replace(/</g,'&lt;')
+        : '<span class="ph">Bu yerda imo-ishoralar matnga aylanadi…</span>';
+    }
+  };
+}
+
+async function start(){
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    setStatus('Brauzer kamerani qoʻllab-quvvatlamaydi', 'err');
+    alert('Bu sahifa xavfsiz manzilda (localhost yoki HTTPS) ochilishi kerak.');
+    return;
+  }
+  // 1) Kamera oqimini olamiz
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: false });
+  }catch(e){
+    var msg;
+    switch(e.name){
+      case 'NotAllowedError':
+      case 'SecurityError':
+        msg = 'Kameraga ruxsat berilmadi. Manzil panelidagi kamera belgisidan ruxsat bering.'; break;
+      case 'NotReadableError':
+      case 'AbortError':
+        msg = 'Kamera band — uni boshqa dastur yoki brauzer tabi ishlatyapti (mas. boshqa ochiq tab). Ularni yopib, qayta urinib koʻring.'; break;
+      case 'NotFoundError':
+      case 'OverconstrainedError':
+        msg = 'Kamera topilmadi.'; break;
+      default:
+        msg = (e.message || e.name);
+    }
+    setStatus('Kamera xatosi', 'err');
+    alert('Kamerani ochib boʻlmadi: ' + msg);
+    return;
+  }
+  // 2) Videoga ulaymiz — play() ning zararsiz abort xatosini yutamiz
+  video.srcObject = stream;
+  try { await video.play(); } catch(_) { /* autoplay/abort — zararsiz */ }
+  connect();
+  startBtn.hidden = true; stopBtn.hidden = false;
+  rec.classList.add('live'); recLabel.textContent = 'JONLI';
+  sendTimer = setInterval(sendFrame, 1000 / SEND_FPS);
+}
+
+function sendFrame(){
+  if (!ws || ws.readyState !== WebSocket.OPEN || video.readyState < 2) return;
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  ws.send(canvas.toDataURL('image/jpeg', 0.6));
+}
+
+function stop(){
+  if (sendTimer){ clearInterval(sendTimer); sendTimer = null; }
+  if (ws){ ws.close(); ws = null; }
+  if (stream){ stream.getTracks().forEach(t => t.stop()); stream = null; }
+  video.srcObject = null;
+  startBtn.hidden = false; stopBtn.hidden = true;
+  rec.classList.remove('live'); recLabel.textContent = 'KUTILMOQDA';
+  glossNow.textContent = '';
+  setStatus('To‘xtatildi');
+}
+
+function clearText(){
+  textOut.innerHTML = '<span class="ph">Bu yerda imo-ishoralar matnga aylanadi…</span>';
+  glossNow.textContent = '';
+  if (ws && ws.readyState === WebSocket.OPEN) ws.send('__reset__');
+}
+
+startBtn.onclick = start;
+stopBtn.onclick = stop;
+clearBtn.onclick = clearText;
+window.addEventListener('beforeunload', stop);
+</script>
+</body>
+</html>
