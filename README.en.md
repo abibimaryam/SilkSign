@@ -27,22 +27,22 @@ The same preprocessing pipeline is also used in `demo.py` — for browser-less o
 
 ## Repository structure
 
-| Path | Purpose |
-|---|---|
-| `server.py` | FastAPI server: landing page, `/demo` (web client), real-time recognition WebSocket `/ws` |
-| `demo.py` | Standalone OpenCV-based CLI demo (no browser), with a multiprocessing option |
-| `constants.py` | `classes` dictionary — model index → word/letter (in Uzbek) |
-| `config_example.yaml` | Model configuration: weights file path, frame interval, normalization mean/std |
-| `web/index.html` | Web client for the recognition demo (camera capture, gesture/sentence output) |
-| `Ishora.dc.html` | Project landing page |
-| `support.js` | Landing page runtime script |
-| `examples/` | Inference (ONNX/Torch) and landmark visualization notebooks |
-| `sign language.md` | Investor pitch deck document for the project |
-| `license/` | License text (en/ru) |
+| Path                    | Purpose                                                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------------- |
+| `server.py`           | FastAPI server: landing page,`/demo` (web client), real-time recognition WebSocket `/ws` |
+| `demo.py`             | Standalone OpenCV-based CLI demo (no browser), with a multiprocessing option                 |
+| `constants.py`        | `classes` dictionary — model index → word/letter (in Uzbek)                              |
+| `config_example.yaml` | Model configuration: weights file path, frame interval, normalization mean/std               |
+| `web/index.html`      | Web client for the recognition demo (camera capture, gesture/sentence output)                |
+| `Ishora.dc.html`      | Project landing page                                                                         |
+| `support.js`          | Landing page runtime script                                                                  |
+| `examples/`           | Inference (ONNX/Torch) and landmark visualization notebooks                                  |
+| `sign language.md`    | Investor pitch deck document for the project                                                 |
+| `license/`            | License text (en/ru)                                                                         |
 
 ## Installation
 
-Python 3.9+ is required.
+### Python 3.10 is required.
 
 ```bash
 pip install -r requirements.txt

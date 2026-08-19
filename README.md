@@ -27,22 +27,22 @@ Xuddi shu oldindan tayyorlash quvuri `demo.py` da ham ishlatiladi — brauzersiz
 
 ## Repozitoriy tuzilishi
 
-| Yo'l | Vazifasi |
-|---|---|
-| `server.py` | FastAPI-server: landing sahifa, `/demo` (veb-mijoz), real vaqtdagi tanish uchun WebSocket `/ws` |
-| `demo.py` | OpenCV asosidagi mustaqil CLI-demo (brauzersiz), multiprocessing opsiyasi bilan |
-| `constants.py` | `classes` lug'ati — model indeksi → so'z/harf (o'zbek tilida) |
-| `config_example.yaml` | Model konfiguratsiyasi: vazn fayli yo'li, kadr intervali, normallashtirish mean/std qiymatlari |
-| `web/index.html` | Tanish demosining veb-mijozi (kamera olish, imo-ishora/gap chiqishi) |
-| `Ishora.dc.html` | Loyihaning landing sahifasi |
-| `support.js` | Landing sahifa runtime skripti |
-| `examples/` | Inferens (ONNX/Torch) va landmarklarni vizualizatsiya qilish notebooklari |
-| `sign language.md` | Loyihaning investorlar uchun taqdimot (pitch deck) hujjati |
-| `license/` | Litsenziya matni (en/ru) |
+| Yo'l                    | Vazifasi                                                                                           |
+| ----------------------- | -------------------------------------------------------------------------------------------------- |
+| `server.py`           | FastAPI-server: landing sahifa,`/demo` (veb-mijoz), real vaqtdagi tanish uchun WebSocket `/ws` |
+| `demo.py`             | OpenCV asosidagi mustaqil CLI-demo (brauzersiz), multiprocessing opsiyasi bilan                    |
+| `constants.py`        | `classes` lug'ati — model indeksi → so'z/harf (o'zbek tilida)                                  |
+| `config_example.yaml` | Model konfiguratsiyasi: vazn fayli yo'li, kadr intervali, normallashtirish mean/std qiymatlari     |
+| `web/index.html`      | Tanish demosining veb-mijozi (kamera olish, imo-ishora/gap chiqishi)                               |
+| `Ishora.dc.html`      | Loyihaning landing sahifasi                                                                        |
+| `support.js`          | Landing sahifa runtime skripti                                                                     |
+| `examples/`           | Inferens (ONNX/Torch) va landmarklarni vizualizatsiya qilish notebooklari                          |
+| `sign language.md`    | Loyihaning investorlar uchun taqdimot (pitch deck) hujjati                                         |
+| `license/`            | Litsenziya matni (en/ru)                                                                           |
 
 ## O'rnatish
 
-Python 3.9+ talab qilinadi.
+### Python 3.10 talab qilinadi.
 
 ```bash
 pip install -r requirements.txt
