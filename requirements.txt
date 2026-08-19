@@ -1,5 +1,8 @@
+fastapi==0.141.1
 loguru==0.7.0
+numpy<2
 omegaconf==2.3.0
 onnxruntime==1.14.1
 opencv-contrib-python==4.7.0.72
 torch>=1.8
+uvicorn[standard]==0.52.3
