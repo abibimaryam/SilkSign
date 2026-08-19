@@ -1,5 +1,7 @@
 # SilkSign (Ishora)
 
+*[English](README.en.md)*
+
 **SilkSign** — imo-ishorani real vaqtda matnga aylantiruvchi prototip: kamera imo-ishorani suratga oladi, ONNX modeli uni tasniflaydi va ekranga tanilgan so'z chiqadi.
 
 Veb-interfeys **Ishora** deb ataladi va brauzer orqali ishlaydi: veb-kameradan tushayotgan video WebSocket orqali serverga yuboriladi, u yerda kadrlar CLI-demoda ishlatiladigan xuddi o'sha oldindan tayyorlash (preprocessing) va model bilan qayta ishlanadi.
